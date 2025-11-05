@@ -28,16 +28,17 @@ public class FileManager {
             } else {
                 System.out.println("⚠ File already exists: " + fileName.getName());
                 System.out.print("Do you want to overwrite it? (yes/no): ");
-                Scanner scanner = new Scanner(System.in);
-                String response = scanner.nextLine().trim().toLowerCase();
-                if (response.equals("yes") || response.equals("y")) {
-                    // Clear the file content
-                    new FileWriter(fileName, false).close();
-                    System.out.println("✓ File will be overwritten.");
-                    return true;
-                } else {
-                    System.out.println("✗ Operation cancelled. File was not overwritten.");
-                    return false;
+                try (Scanner scanner = new Scanner(System.in)) {
+                    String response = scanner.nextLine().trim().toLowerCase();
+                    if (response.equals("yes") || response.equals("y")) {
+                        // Clear the file content
+                        new FileWriter(fileName, false).close();
+                        System.out.println("✓ File will be overwritten.");
+                        return true;
+                    } else {
+                        System.out.println("✗ Operation cancelled. File was not overwritten.");
+                        return false;
+                    }
                 }
             }
         } catch (IOException e) {

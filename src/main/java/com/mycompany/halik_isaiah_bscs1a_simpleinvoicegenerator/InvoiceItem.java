@@ -16,9 +16,12 @@ public class InvoiceItem {
      * 
      * @param name  The name of the item
      * @param price The price of the item
-     * @throws IllegalArgumentException if price is negative
+     * @throws IllegalArgumentException if name is null or empty, or if price is negative
      */
     public InvoiceItem(String name, double price) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Item name cannot be null or empty");
+        }
         if (price < 0) {
             throw new IllegalArgumentException("Price cannot be negative");
         }

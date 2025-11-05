@@ -100,6 +100,9 @@ public class InputValidator {
      * @return A valid email address
      */
     public static String readEmail(Scanner scanner, String prompt) {
+        // Basic email pattern: at least one character before @, then domain with at least one dot
+        String emailPattern = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
+        
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine().trim();
@@ -109,8 +112,16 @@ public class InputValidator {
                 continue;
             }
             
-            if (!input.contains("@") || !input.contains(".")) {
-                System.err.println("✗ Invalid email format. Please include '@' and a domain.");
+            if (!input.matches(emailPattern)) {
+                System.err.println("✗ Invalid email format. Please use format: username@domain.com");
+                continue;
+            }
+            
+            // Additional check: @ must come before the last dot
+            int atIndex = input.indexOf('@');
+            int lastDotIndex = input.lastIndexOf('.');
+            if (atIndex >= lastDotIndex) {
+                System.err.println("✗ Invalid email format. Domain must contain a dot after @");
                 continue;
             }
             

@@ -32,10 +32,36 @@ public class Invoice {
      * @param sellerEmail  Email of the seller
      * @param invoiceDate  Date when invoice was issued
      * @param dueDate      Date when payment is due
+     * @throws IllegalArgumentException if any parameter is null or empty
      */
     public Invoice(String buyerName, String buyerAddress, String buyerEmail,
                    String sellerName, String sellerAddress, String sellerEmail,
                    String invoiceDate, String dueDate) {
+        if (buyerName == null || buyerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Buyer name cannot be null or empty");
+        }
+        if (buyerAddress == null || buyerAddress.trim().isEmpty()) {
+            throw new IllegalArgumentException("Buyer address cannot be null or empty");
+        }
+        if (buyerEmail == null || buyerEmail.trim().isEmpty()) {
+            throw new IllegalArgumentException("Buyer email cannot be null or empty");
+        }
+        if (sellerName == null || sellerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Seller name cannot be null or empty");
+        }
+        if (sellerAddress == null || sellerAddress.trim().isEmpty()) {
+            throw new IllegalArgumentException("Seller address cannot be null or empty");
+        }
+        if (sellerEmail == null || sellerEmail.trim().isEmpty()) {
+            throw new IllegalArgumentException("Seller email cannot be null or empty");
+        }
+        if (invoiceDate == null || invoiceDate.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invoice date cannot be null or empty");
+        }
+        if (dueDate == null || dueDate.trim().isEmpty()) {
+            throw new IllegalArgumentException("Due date cannot be null or empty");
+        }
+        
         this.buyerName = buyerName;
         this.buyerAddress = buyerAddress;
         this.buyerEmail = buyerEmail;
@@ -51,8 +77,12 @@ public class Invoice {
      * Adds an item to the invoice.
      * 
      * @param item The invoice item to add
+     * @throws IllegalArgumentException if item is null
      */
     public void addItem(InvoiceItem item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Invoice item cannot be null");
+        }
         items.add(item);
     }
 
