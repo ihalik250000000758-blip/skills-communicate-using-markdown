@@ -165,6 +165,6 @@ public class Invoice {
     }
 
     public List<InvoiceItem> getItems() {
-        return new ArrayList<>(items);
+        return java.util.Collections.unmodifiableList(items);
     }
 }

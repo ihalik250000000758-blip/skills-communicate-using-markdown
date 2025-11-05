@@ -51,7 +51,7 @@ public class Halik_Isaiah_BSCS1A_SimpleInvoiceGenerator {
             File file = new File(filename);
             
             // Step 3: Create file and handle overwrite
-            if (!FileManager.createFile(file)) {
+            if (!FileManager.createFile(file, scanner)) {
                 System.out.println("\n✗ Invoice generation cancelled.");
                 return;
             }

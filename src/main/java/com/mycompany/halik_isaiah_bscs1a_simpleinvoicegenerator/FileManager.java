@@ -18,9 +18,10 @@ public class FileManager {
      * Creates a new file or verifies that it exists.
      * 
      * @param fileName The file to create
+     * @param scanner The scanner to use for user input (should not be closed by this method)
      * @return true if file was created successfully or already exists, false otherwise
      */
-    public static boolean createFile(File fileName) {
+    public static boolean createFile(File fileName, Scanner scanner) {
         try {
             if (fileName.createNewFile()) {
                 System.out.println("✓ File has been created successfully: " + fileName.getName());
@@ -28,17 +29,15 @@ public class FileManager {
             } else {
                 System.out.println("⚠ File already exists: " + fileName.getName());
                 System.out.print("Do you want to overwrite it? (yes/no): ");
-                try (Scanner scanner = new Scanner(System.in)) {
-                    String response = scanner.nextLine().trim().toLowerCase();
-                    if (response.equals("yes") || response.equals("y")) {
-                        // Clear the file content
-                        new FileWriter(fileName, false).close();
-                        System.out.println("✓ File will be overwritten.");
-                        return true;
-                    } else {
-                        System.out.println("✗ Operation cancelled. File was not overwritten.");
-                        return false;
-                    }
+                String response = scanner.nextLine().trim().toLowerCase();
+                if (response.equals("yes") || response.equals("y")) {
+                    // Clear the file content
+                    new FileWriter(fileName, false).close();
+                    System.out.println("✓ File will be overwritten.");
+                    return true;
+                } else {
+                    System.out.println("✗ Operation cancelled. File was not overwritten.");
+                    return false;
                 }
             }
         } catch (IOException e) {
